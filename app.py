@@ -29,7 +29,11 @@ app.middleware("http")(timing_middleware)
 # CORS middleware example
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins (for testing)
+    allow_origins=[
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+        "https://myfirstfastapi.onrender.com"  # Agrega aquí tu URL de Render
+    ],  # Allow all origins (for testing)
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
     allow_credentials=True,  # Allow cookies and credentials
