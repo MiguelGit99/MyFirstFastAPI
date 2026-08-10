@@ -31,13 +31,21 @@ async def get_issue_by_id(issue_id: str) -> IssueOut:
 async def create_issue(issue: IssueCreate):
     """ Create an issue and save to json file """
     issues = load_data()
+    # new_issue = {
+    #     "id": str(uuid.uuid4()),
+    #     "title": issue.title,
+    #     "description": issue.description,
+    #     "priority": issue.priority,
+    #     "status": IssueStatus.OPEN
+    # }
+
+    # Desempaquetamos el modelo de entrada y agregamos/sobreescribimos los campos del backend
     new_issue = {
+        **issue.model_dump(), # Método oficial de Pydantic v2 (reemplaza a .dict() y la linea anterior)
         "id": str(uuid.uuid4()),
-        "title": issue.title,
-        "description": issue.description,
-        "priority": issue.priority,
         "status": IssueStatus.OPEN
     }
+
     issues.append(new_issue)
     save_data(issues)
     return new_issue
